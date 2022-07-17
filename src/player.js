@@ -26,8 +26,22 @@ class Player {
 
     if (this.position.y + this.height + this.velocity.y <= canvas.height)
       this.velocity.y += gravity;
-      else this.velocity.y = 0;
+    else this.velocity.y = 0;
   }
 }
 
-export { Player };
+class Plataform {
+  constructor() {
+    this.position = {
+      x: 200,
+      y: 100,
+    };
+    (this.width = 200), (this.height = 20);
+  }
+  draw(){
+    c.fillStyle ="blue"
+    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+  }
+}
+
+export { Player, Plataform };
