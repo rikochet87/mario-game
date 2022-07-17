@@ -31,10 +31,10 @@ class Player {
 }
 
 class Plataform {
-  constructor() {
+  constructor({x, y}) {
     this.position = {
-      x: 200,
-      y: 100,
+      x: x,
+      y: y,
     };
     (this.width = 200), (this.height = 20);
   }
