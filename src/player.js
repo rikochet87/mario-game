@@ -1,6 +1,6 @@
-import { canvas, c } from "./index";
+import { canvas, c} from "./index";
 
-const gravity = 0.5;
+const gravity = 0.7;
 
 class Player {
   constructor() {
@@ -31,17 +31,18 @@ class Player {
 }
 
 class Plataform {
-  constructor({x, y}) {
+  constructor({ x, y, image }) {
     this.position = {
       x: x,
       y: y,
     };
-    (this.width = 200), (this.height = 20);
+    (this.image = image),
+    (this.width = image.width),
+    (this.height = image.height);
   }
-  draw(){
-    c.fillStyle ="blue"
-    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+  draw() {
+    c.drawImage(this.image, this.position.x, this.position.y);
   }
 }
 
-export { Player, Plataform };
+export { Player, Plataform};
