@@ -45,4 +45,19 @@ class Plataform {
   }
 }
 
-export { Player, Plataform};
+class GenericObjet {
+  constructor({ x, y, image }) {
+    this.position = {
+      x: x,
+      y: y,
+    };
+    (this.image = image),
+    (this.width = image.width),
+    (this.height = image.height);
+  }
+  draw() {
+    c.drawImage(this.image, this.position.x, this.position.y);
+  }
+}
+
+export { Player, Plataform, GenericObjet};
