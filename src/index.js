@@ -15,14 +15,19 @@ function createImage(imageSrc) {
   return image;
 }
 
-const plataformImage = createImage(platform);
+let plataformImage = createImage(platform);
 
-const player = new Player();
-const plataforms = [
+let player = new Player();
+let plataforms = [
   new Plataform({ x: -1, y: 470, image: plataformImage }),
   new Plataform({ x: plataformImage.width - 3, y: 470, image: plataformImage }),
+  new Plataform({
+    x: plataformImage.width * 2 + 100,
+    y: 470,
+    image: plataformImage,
+  }),
 ];
-const genericObjets = [
+let genericObjets = [
   new GenericObjet({
     x: -1,
     y: -1,
@@ -45,6 +50,39 @@ const keys = {
 };
 
 let scrollOffset = 0;
+
+function init() {
+  plataformImage = createImage(platform);
+
+  player = new Player();
+  plataforms = [
+    new Plataform({ x: -1, y: 470, image: plataformImage }),
+    new Plataform({
+      x: plataformImage.width - 3,
+      y: 470,
+      image: plataformImage,
+    }),
+    new Plataform({
+      x: plataformImage.width * 2 + 100,
+      y: 470,
+      image: plataformImage,
+    }),
+  ];
+  genericObjets = [
+    new GenericObjet({
+      x: -1,
+      y: -1,
+      image: createImage(background),
+    }),
+    new GenericObjet({
+      x: -1,
+      y: -1,
+      image: createImage(hills),
+    }),
+  ];
+
+  scrollOffset = 0;
+}
 
 function animate() {
   requestAnimationFrame(animate);
@@ -97,8 +135,13 @@ function animate() {
       player.velocity.y = 0;
     }
   });
+  //win condition
   if (scrollOffset > 2000) {
     console.log("you win");
+  }
+  //lose condition
+  if (player.position.y > canvas.height) {
+    init();
   }
 }
 animate();

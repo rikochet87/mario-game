@@ -1,4 +1,4 @@
-import { canvas, c} from "./index";
+import { canvas, c } from "./index";
 
 const gravity = 0.7;
 
@@ -26,7 +26,6 @@ class Player {
 
     if (this.position.y + this.height + this.velocity.y <= canvas.height)
       this.velocity.y += gravity;
-    else this.velocity.y = 0;
   }
 }
 
@@ -37,8 +36,8 @@ class Plataform {
       y: y,
     };
     (this.image = image),
-    (this.width = image.width),
-    (this.height = image.height);
+      (this.width = image.width),
+      (this.height = image.height);
   }
   draw() {
     c.drawImage(this.image, this.position.x, this.position.y);
@@ -52,12 +51,12 @@ class GenericObjet {
       y: y,
     };
     (this.image = image),
-    (this.width = image.width),
-    (this.height = image.height);
+      (this.width = image.width),
+      (this.height = image.height);
   }
   draw() {
     c.drawImage(this.image, this.position.x, this.position.y);
   }
 }
 
-export { Player, Plataform, GenericObjet};
+export { Player, Plataform, GenericObjet };
