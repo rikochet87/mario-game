@@ -30,7 +30,7 @@ class Player {
   }
 }
 
-class Plataform {
+class Platform {
   constructor({ x, y, image }) {
     this.position = {
       x: x,
@@ -60,4 +60,4 @@ class GenericObjet {
   }
 }
 
-export { Player, Plataform, GenericObjet };
+export { Player, Platform, GenericObjet };
