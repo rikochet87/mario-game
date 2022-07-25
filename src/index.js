@@ -2,6 +2,7 @@ import { Plataform, Player, GenericObjet } from "./player";
 import platform from "../img/platform.png";
 import hills from "../img/hills.png";
 import background from "../img/background.png";
+import platformSmallTall from "../img/platformSmallTall.png";
 
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
@@ -16,6 +17,7 @@ function createImage(imageSrc) {
 }
 
 let plataformImage = createImage(platform);
+let platformSmallTallImage = createImage(platformSmallTall);
 
 let player = new Player();
 let plataforms = [
@@ -56,6 +58,11 @@ function init() {
 
   player = new Player();
   plataforms = [
+    new Plataform({
+      x: plataformImage.width * 4 + 300 - 2 + plataformImage.width - platformSmallTallImage.width,
+      y: 300,
+      image: createImage(platformSmallTall),
+    }),
     new Plataform({ x: -1, y: 470, image: plataformImage }),
     new Plataform({
       x: plataformImage.width - 3,
@@ -64,6 +71,21 @@ function init() {
     }),
     new Plataform({
       x: plataformImage.width * 2 + 100,
+      y: 470,
+      image: plataformImage,
+    }),
+    new Plataform({
+      x: plataformImage.width * 3 + 300,
+      y: 470,
+      image: plataformImage,
+    }),
+    new Plataform({
+      x: plataformImage.width * 4 + 300 - 2,
+      y: 470,
+      image: plataformImage,
+    }),
+    new Plataform({
+      x: plataformImage.width * 5 + 700 - 2,
       y: 470,
       image: plataformImage,
     }),
@@ -99,26 +121,26 @@ function animate() {
   player.update();
 
   if (keys.right.pressed && player.position.x < 400) {
-    player.velocity.x = 5;
+    player.velocity.x = player.speed;
   } else if (keys.left.pressed && player.position.x > 100) {
-    player.velocity.x = -5;
+    player.velocity.x = -player.speed;
   } else {
     player.velocity.x = 0;
     if (keys.right.pressed) {
-      scrollOffset += 5;
+      scrollOffset += player.speed;
       plataforms.forEach((platform) => {
-        platform.position.x -= 5;
+        platform.position.x -= player.speed;
       });
       genericObjets.forEach((genericObjet) => {
-        genericObjet.position.x -= 3;
+        genericObjet.position.x -= player.speed * 0.66;
       });
     } else if (keys.left.pressed) {
-      scrollOffset -= 5;
+      scrollOffset -= player.speed;
       plataforms.forEach((platform) => {
-        platform.position.x -= -5;
+        platform.position.x -= -player.speed;
       });
       genericObjets.forEach((genericObjet) => {
-        genericObjet.position.x += 3;
+        genericObjet.position.x += player.speed * 0.66;
       });
     }
   }
@@ -136,7 +158,7 @@ function animate() {
     }
   });
   //win condition
-  if (scrollOffset > 2000) {
+  if (scrollOffset > plataformImage.width * 5 + 300 - 2) {
     console.log("you win");
   }
   //lose condition
@@ -144,6 +166,8 @@ function animate() {
     init();
   }
 }
+
+init();
 animate();
 
 (function () {
