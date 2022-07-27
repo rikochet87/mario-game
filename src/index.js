@@ -1,4 +1,4 @@
-import { Platform, Player, GenericObjet } from "./player";
+import { Player, Platform, GenericObjet } from "./player";
 import platform from "../img/platform.png";
 import hills from "../img/hills.png";
 import background from "../img/background.png";
@@ -10,11 +10,12 @@ const c = canvas.getContext("2d");
 canvas.width = 1024;
 canvas.height = 576;
 
-function createImage(imageSrc) {
+export function createImage(imageSrc) {
   const image = new Image();
   image.src = imageSrc;
   return image;
 }
+
 
 let platformImage = createImage(platform);
 let platformSmallTallImage = createImage(platformSmallTall);
@@ -41,6 +42,9 @@ let genericObjets = [
     image: createImage(hills),
   }),
 ];
+
+
+// let currentKey
 
 const keys = {
   right: {
@@ -165,6 +169,14 @@ function animate() {
       player.velocity.y = 0;
     }
   });
+
+  // if (currentKey === "right" && currentSprite !== player.sprites.run.right) {
+  //   player.frames = 1;
+  //   player.currentSprite = player.sprites.run.right;
+  //   player.currentCropWidth = player.sprites.run.cropWidth
+  //   player.width = player.sprites.run.width
+  // }
+
   //win condition
   if (scrollOffset > platformImage.width * 5 + 300 - 2) {
     console.log("you win");
@@ -178,12 +190,14 @@ function animate() {
 init();
 animate();
 
-(function () {
   addEventListener("keydown", ({ keyCode }) => {
     switch (keyCode) {
       case 65:
         console.log("left");
         keys.left.pressed = true;
+        player.currentSprite = player.sprites.run.left;
+        player.currentCropWidth = player.sprites.run.cropWidth;
+        player.width = player.sprites.run.width;
         break;
 
       case 83:
@@ -193,6 +207,9 @@ animate();
       case 68:
         console.log("right");
         keys.right.pressed = true;
+        player.currentSprite = player.sprites.run.right;
+        player.currentCropWidth = player.sprites.run.cropWidth;
+        player.width = player.sprites.run.width;
         break;
 
       case 87:
@@ -201,14 +218,15 @@ animate();
         break;
     }
   });
-})();
 
-(function () {
   addEventListener("keyup", ({ keyCode }) => {
     switch (keyCode) {
       case 65:
         console.log("left");
         keys.left.pressed = false;
+        player.currentSprite = player.sprites.stand.left;
+        player.currentCropWidth = player.sprites.stand.cropWidth;
+        player.width = player.sprites.stand.width;
         break;
 
       case 83:
@@ -218,6 +236,9 @@ animate();
       case 68:
         console.log("right");
         keys.right.pressed = false;
+        player.currentSprite = player.sprites.stand.right;
+        player.currentCropWidth = player.sprites.stand.cropWidth;
+        player.width = player.sprites.stand.width;
         break;
 
       case 87:
@@ -226,6 +247,6 @@ animate();
         break;
     }
   });
-})();
+
 
 export { c, canvas };
